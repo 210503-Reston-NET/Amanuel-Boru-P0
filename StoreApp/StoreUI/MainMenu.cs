@@ -23,7 +23,7 @@ namespace StoreUI
                         break;
                     case "2":
                         System.Console.WriteLine("manager");
-                        ManagerMenu newManager = new ManagerMenu();
+                        ManagerMenu newManager = new ManagerMenu(new LocationBL(new LocationRepo()));
                         newManager.start();
                         break;
                     case "3":

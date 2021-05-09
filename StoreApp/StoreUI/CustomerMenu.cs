@@ -6,11 +6,11 @@ namespace StoreUI
     public class CustomerMenu
     {
 
-        private CustomerBL _storeBL;
+        private CustomerBL _customerBL;
         private string _userName;
 
         public CustomerMenu(CustomerBL newStoreBL){
-            _storeBL = newStoreBL;
+            _customerBL = newStoreBL;
         }
         public void start(){
             System.Console.WriteLine("Please enter \"1\" if you are an existing customer");
@@ -39,19 +39,19 @@ namespace StoreUI
 
             System.Console.WriteLine("Please enter a username");
             string GivenUserName = Console.ReadLine();
-            bool exists = _storeBL.UserNameExists(GivenUserName);
+            bool exists = _customerBL.UserNameExists(GivenUserName);
 
             if (!exists) ValidUsername = true;
 
             while(!ValidUsername){
                 System.Console.WriteLine("Username is already taken please select a new user name");
                 GivenUserName = Console.ReadLine();
-                exists = _storeBL.UserNameExists(GivenUserName);
+                exists = _customerBL.UserNameExists(GivenUserName);
                 if (!exists) ValidUsername = true;
             }
             _userName = GivenUserName;
 
-            _storeBL.AddCustomer(new Customer(name, _userName));
+            _customerBL.AddCustomer(new Customer(name, _userName));
 
         }
 
@@ -59,7 +59,7 @@ namespace StoreUI
             System.Console.WriteLine("Please enter your username");
             string GivenUserName = Console.ReadLine();
 
-            bool exists = _storeBL.UserNameExists(GivenUserName);
+            bool exists = _customerBL.UserNameExists(GivenUserName);
 
             if (exists){
                 System.Console.WriteLine("exists");
