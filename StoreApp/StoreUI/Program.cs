@@ -1,12 +1,13 @@
 ﻿using System;
-
+using StoreModels;
 namespace StoreUI
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            MainMenu PStart = new MainMenu();
+            PStart.start();
         }
     }
 }
