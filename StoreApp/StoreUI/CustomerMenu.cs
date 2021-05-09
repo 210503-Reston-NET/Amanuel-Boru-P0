@@ -6,10 +6,10 @@ namespace StoreUI
     public class CustomerMenu
     {
 
-        private StoresBL _storeBL;
+        private CustomerBL _storeBL;
         private string _userName;
 
-        public CustomerMenu(StoresBL newStoreBL){
+        public CustomerMenu(CustomerBL newStoreBL){
             _storeBL = newStoreBL;
         }
         public void start(){

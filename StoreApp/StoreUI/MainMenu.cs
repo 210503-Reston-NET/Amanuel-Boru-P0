@@ -18,11 +18,13 @@ namespace StoreUI
                 switch(Response){
                     case "1":
                         System.Console.WriteLine("Customer");
-                        CustomerMenu newCustomerMenu = new CustomerMenu(new StoresBL( new StoreRepo()));
+                        CustomerMenu newCustomerMenu = new CustomerMenu(new CustomerBL( new CustomerRepo()));
                         newCustomerMenu.start();
                         break;
                     case "2":
                         System.Console.WriteLine("manager");
+                        ManagerMenu newManager = new ManagerMenu();
+                        newManager.start();
                         break;
                     case "3":
                         System.Console.WriteLine("exit");

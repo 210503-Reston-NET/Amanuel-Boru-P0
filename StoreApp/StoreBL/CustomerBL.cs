@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace StoreBL
 {
-    public class StoresBL
+    public class CustomerBL
     {
-        private StoreRepo _repo;
+        private CustomerRepo _repo;
 
-        public StoresBL(StoreRepo newRepo){
+        public CustomerBL(CustomerRepo newRepo){
             _repo = newRepo;
         }
         public Customer AddCustomer(Customer newCustomer){

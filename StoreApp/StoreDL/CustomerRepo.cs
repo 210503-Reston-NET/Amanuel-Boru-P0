@@ -7,9 +7,9 @@ using System;
 
 namespace StoreDL
 {
-    public class StoreRepo
+    public class CustomerRepo
     {
-        private const string filePath = "../StoreDL/Store.json";
+        private const string filePath = "../StoreDL/Customer.json";
         private string jsonString;
 
         public Customer AddCustomer(Customer newCustomer){

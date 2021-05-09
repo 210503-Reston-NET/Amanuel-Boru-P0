@@ -5,6 +5,10 @@ namespace StoreModels
     /// </summary>
     public class Location
     {
+        public Location(string address, string locationName){
+            Address = address;
+            LocationName = locationName;
+        }
         public string Address { get; set; }
         public string LocationName { get; set; }
         //TODO: add some property for the location inventory
