@@ -9,10 +9,11 @@ namespace StoreUI
     public class ManagerMenu
     {
         private LocationBL _locationBL;
+        private CustomerBL _customerBL;
         
-        public ManagerMenu(LocationBL locationbl){
+        public ManagerMenu(LocationBL locationbl, CustomerBL customerBL){
             _locationBL = locationbl;
-            
+            _customerBL = customerBL;
         }
         public void start(){
             bool repeat = true;
@@ -50,9 +51,11 @@ namespace StoreUI
                         break;
                     case "6":
                         System.Console.WriteLine("show all customers");
+                        ViewAllCustomers();
                         break;
                     case "7":
                         System.Console.WriteLine("search a customer");
+                        ViewCustomerByUsername();
                         break;
                     case "8":
                         System.Console.WriteLine("exit");
@@ -249,6 +252,34 @@ namespace StoreUI
             }while(repeat);
 
             return locations[index];
+        }
+        
+        public void ViewAllCustomers(){
+            List<Customer> customers = _customerBL.GetAllCustomers();
+            int count = 1;
+            if (customers.Count == 0){
+                System.Console.WriteLine("you have no customers");
+            }
+            else{
+                foreach(Customer customer in customers){
+                    System.Console.WriteLine(count + ": "+ customer.ToString());
+                    count ++;
+                }
+            }
+        }
+
+        public void ViewCustomerByUsername(){
+            System.Console.WriteLine("what is the username of the customer you want to search for");
+            string username = Console.ReadLine();
+
+            Customer customer = _customerBL.GetCustomer(username);
+
+            if (customer == null){
+                System.Console.WriteLine("There is no customer with that name");
+            }
+            else{
+                System.Console.WriteLine("Customer: " + customer.ToString());
+            }
         }
     }
 }

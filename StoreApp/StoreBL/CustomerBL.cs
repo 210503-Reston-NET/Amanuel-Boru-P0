@@ -22,5 +22,13 @@ namespace StoreBL
 
             return false;
         }
+
+        public List<Customer> GetAllCustomers(){
+            return _repo.GetAllCustomer();
+        }
+
+        public Customer GetCustomer(string username){
+            return _repo.GetCustomer(username);
+        }
     }
 }

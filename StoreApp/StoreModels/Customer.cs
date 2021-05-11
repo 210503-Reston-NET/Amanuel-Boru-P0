@@ -21,7 +21,7 @@ namespace StoreModels
 
         public override string ToString()
         {
-            return $" userName: {UserName} \n Name: {Name}";
+            return $" Username: {UserName} \t Name: {Name}";
         }
 
     }
