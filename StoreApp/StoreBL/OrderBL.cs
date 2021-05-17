@@ -14,6 +14,7 @@ namespace StoreBL
         }
 
         public Order AddOreder(Order newOrder){
+            newOrder.calculateTotal();
             return _repo.AddOrder(newOrder);
         }
 

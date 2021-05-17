@@ -20,6 +20,18 @@ namespace StoreModels
 
         //TODO: add a property for the order items
 
+        public void calculateTotal(){
+            double total = 0;
+            double itemPrice;
+
+            foreach(Item item in Items){
+                itemPrice = item.Product.Price * item.Quantity;
+                total += itemPrice;
+            }
+
+            Total = total;
+        }
+
         public override string ToString()
         {
             string products = "";
