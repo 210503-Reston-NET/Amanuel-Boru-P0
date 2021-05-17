@@ -43,11 +43,10 @@ namespace StoreBL
             List<Order> customerOrders = new List<Order>();
 
             foreach(Order order in allOrders){
-                if (order.Customer.Equals(customer)){
+                if (order.Customer.UserName.Equals(customer.UserName)){
                     customerOrders.Add(order);
                 }
             }
-
             return customerOrders;
         }
     }

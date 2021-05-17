@@ -145,8 +145,8 @@ namespace StoreUI
                 viewItems(location);
                 index = GetInt("Please enter the index # of the Item you want to buy", 0, amount);
                 maxQuantity = location.Inventory[index].Quantity + 1;
-                quantity = GetInt("how many Items would you like between 0 and " + maxQuantity, 0, maxQuantity);
-                
+                quantity = GetInt("how many Items would you like between 0 and " + (maxQuantity - 1), 0, maxQuantity);
+                quantity += 1;
                 item = new Item(location.Inventory[index].Product, quantity);
                 orders.Add(item);
 

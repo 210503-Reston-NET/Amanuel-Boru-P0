@@ -10,10 +10,12 @@ namespace StoreUI
     {
         private LocationBL _locationBL;
         private CustomerBL _customerBL;
+        private OrderBL _orderBL;
         
-        public ManagerMenu(LocationBL locationbl, CustomerBL customerBL){
+        public ManagerMenu(LocationBL locationbl, CustomerBL customerBL, OrderBL orderBL){
             _locationBL = locationbl;
             _customerBL = customerBL;
+            _orderBL = orderBL;
         }
         public void start(){
             bool repeat = true;
@@ -25,7 +27,8 @@ namespace StoreUI
                 Console.WriteLine("Please enter \"5\" to replenish an item");
                 Console.WriteLine("Please enter \"6\" to View all customers");
                 Console.WriteLine("Please enter \"7\" to search a customer");
-                Console.WriteLine("Please enter \"8\" Go Back");
+                Console.WriteLine("Please enter \"8\" to view all order");
+                Console.WriteLine("Please enter \"9\" Go Back");
                 string Response = Console.ReadLine();
 
                 switch(Response){
@@ -58,6 +61,10 @@ namespace StoreUI
                         ViewCustomerByUsername();
                         break;
                     case "8":
+                        System.Console.WriteLine("View all orders");
+                        ViewAllOrder();
+                        break;
+                    case "9":
                         System.Console.WriteLine("exit");
                         repeat = false; 
                         break;
@@ -67,6 +74,15 @@ namespace StoreUI
                 }
 
             }while(repeat);
+        }
+
+        private void ViewAllOrder()
+        {
+            List<Order> AllOrder = _orderBL.GetAllOrder();
+
+            foreach(Order order in AllOrder){
+                System.Console.WriteLine(order.ToString());
+            }
         }
 
         public void AddLocation(){

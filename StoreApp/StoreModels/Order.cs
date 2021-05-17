@@ -19,5 +19,16 @@ namespace StoreModels
         public double Total { get; set; }
 
         //TODO: add a property for the order items
+
+        public override string ToString()
+        {
+            string products = "";
+
+            foreach(Item item in Items){
+                products = string.Join("\n", item.ToString());
+            }
+
+            return $" customer: {Customer.ToString()} \t Total: {Total} \n {products}";
+        }
     }
 }
