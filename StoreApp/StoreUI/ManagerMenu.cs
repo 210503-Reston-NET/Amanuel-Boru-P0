@@ -189,15 +189,15 @@ namespace StoreUI
             
             if (item != null){
                 System.Console.WriteLine("How many would you like to add");
+                // add input validator
                 amountStr = Console.ReadLine();
                 amount = Convert.ToInt32(amountStr);
-
-                _locationBL.ReplenishItem(location, item, amount);
+                _locationBL.changeInventory(location, item, amount);
             }
         }
 
-        public Item GetAnItem(Location newLocation){
-            List<Item> items = newLocation.Inventory;
+        public Item GetAnItem(Location location){
+            List<Item> items = _locationBL.GetInventory(location);
             int amount = items.Count;
             int count = 0;
             if (amount == 0){

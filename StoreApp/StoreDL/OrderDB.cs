@@ -112,10 +112,7 @@ namespace StoreDL
 
             customerOrder.Sort(delegate(Model.Order x, Model.Order y)
                 {
-                    if (x.Orderdate == null && y.Orderdate == null ) return 0;
-                    else if (x.Orderdate == null) return -1;
-                    else if (y.Orderdate == null) return 1;
-                    else return x.Orderdate.CompareTo(y.Orderdate);
+                    return x.Orderdate.CompareTo(y.Orderdate);
                 });
 
             return customerOrder;

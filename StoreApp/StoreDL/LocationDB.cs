@@ -50,5 +50,29 @@ namespace StoreDL
 
             return items;
         }
+
+        public void changeInventory(Model.Location location, Model.Item item, int amount){
+            
+                Entity.Item Eitem = _context.Items.
+                FirstOrDefault( itm => itm.OrderId == null && itm.LocationId == location.LocationID && itm.ProductName == item.Product.ProductName);
+
+                Eitem.Quantity += amount;
+
+                _context.SaveChanges();
+        }
+
+        public Model.Item AddItemToLocation(Model.Location location, Model.Item item){
+            _context.Items.Add(
+                new Entity.Item{
+                    LocationId = location.LocationID,
+                    OrderId = null,
+                    ProductName = item.Product.ProductName,
+                    Price = item.Product.Price,
+                    Quantity = item.Quantity
+                }
+            );
+            _context.SaveChanges();
+            return item;
+        }
     }
 }
