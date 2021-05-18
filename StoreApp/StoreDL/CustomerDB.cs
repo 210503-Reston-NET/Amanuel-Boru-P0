@@ -26,7 +26,9 @@ namespace StoreDL
             return newCustomer;
         }
         public List<Model.Customer> GetAllCustomers(){
-            return _context.Customers.Select( customer => new Model.Customer(customer.Name, customer.Username)).ToList();
+            List<Model.Customer> customers = _context.Customers.Select( customer => new Model.Customer(customer.Name, customer.Username)).ToList();
+            System.Console.WriteLine(customers.Count);
+            return customers;
         }
 
         public Model.Customer GetCustomer(string username){
