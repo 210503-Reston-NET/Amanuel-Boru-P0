@@ -14,10 +14,10 @@ namespace StoreUI
         private Customer _customer;
         private LocationBL _locationBL;
 
-        public CustomerMenu(CustomerBL newStoreBL, OrderBL newOrder){
-            _customerBL = newStoreBL;
+        public CustomerMenu(CustomerBL customerBL, OrderBL newOrder, LocationBL locationBL){
+            _customerBL = customerBL; 
             _orderBL = newOrder;
-            _locationBL = new LocationBL(new LocationRepo());
+            _locationBL = locationBL;
         }
         public void start(){
             System.Console.WriteLine("Please enter \"1\" if you are an existing customer");
@@ -45,8 +45,9 @@ namespace StoreUI
             do{
                 System.Console.WriteLine("\nWhat would you like to do.");
                 System.Console.WriteLine("Enter 1 to make a new order.");
-                System.Console.WriteLine("Enter 2 to view order history.");
-                System.Console.WriteLine("Enter 3 to go back");
+                System.Console.WriteLine("Enter 2 to view order history by date.");
+                System.Console.WriteLine("Enter 3 to view order history by total.");
+                System.Console.WriteLine("Enter 4 to go back");
                 string response = Console.ReadLine();
 
                 switch(response){
@@ -56,9 +57,13 @@ namespace StoreUI
                         break;
                     case "2":
                         System.Console.WriteLine("existing order");
-                        viewAllOrders();
+                        viewAllOrdersBydate();
                         break;
                     case "3":
+                        System.Console.WriteLine("existing order");
+                        viewAllOrdersByTotal();
+                        break;
+                    case "4":
                         repeat = false;
                         break;
                     default:
@@ -111,17 +116,32 @@ namespace StoreUI
         }
 
         public void MakeAnOrder(){
-            Location location = GetLocation();
-            List<Item> items = GetItems(location);
-            Order order = new Order(_customer, location, items);
-            double total = _orderBL.OrderTotal(order);
+            try{
+                Location location = GetLocation();
+                List<Item> items = GetItems(location);
+                Order order = new Order(_customer, location, items);
+                order.calculateTotal();
 
-            System.Console.WriteLine("Your total is $" + total);
-            _orderBL.AddOreder(order);
+                System.Console.WriteLine("Your total is $" + order.Total);
+                _orderBL.AddOreder(order, location);
+            }
+            catch (Exception ex){
+
+                System.Console.WriteLine(ex);
+            }
         }
 
-        public void viewAllOrders(){
-            List<Order> orders = _orderBL.CustomerOrders(_customer);
+        public void viewAllOrdersBydate(){
+            List<Order> orders = _orderBL.CustomerOrdersBydate(_customer);
+            System.Console.WriteLine("This are the list of your orders");
+
+            foreach(Order order in orders){
+                System.Console.WriteLine(order.ToString());
+            }
+        }
+
+        public void viewAllOrdersByTotal(){
+            List<Order> orders = _orderBL.CustomerOrdersByTotal(_customer);
             System.Console.WriteLine("This are the list of your orders");
 
             foreach(Order order in orders){
@@ -131,23 +151,29 @@ namespace StoreUI
 
         private List<Item> GetItems(Location location)
         {
+            List<Item> inventory = _locationBL.GetInventory(location);
+            int amount = inventory.Count;
+
+            if (amount == 0){
+                throw new Exception("This location doesnt have any inventory");
+            }
+
             bool repeat = true;
             List<Item> orders = new List<Item>();
             Item item;
             string response;
 
             int index = -1;
-            int amount = location.Inventory.Count;
             int quantity = 0;
             int maxQuantity;
 
             do{
                 viewItems(location);
                 index = GetInt("Please enter the index # of the Item you want to buy", 0, amount);
-                maxQuantity = location.Inventory[index].Quantity + 1;
+                maxQuantity = inventory[index].Quantity + 1;
                 quantity = GetInt("how many Items would you like between 0 and " + (maxQuantity - 1), 0, maxQuantity);
                 quantity += 1;
-                item = new Item(location.Inventory[index].Product, quantity);
+                item = new Item(inventory[index].Product, quantity);
                 orders.Add(item);
 
                 System.Console.WriteLine("whould you like to buy more itmes enter \"yes\" to continue or anything else to end purchase");
@@ -162,11 +188,12 @@ namespace StoreUI
         }
 
         public void viewItems(Location location){
-            List<Item> items = location.Inventory;
+            List<Item> items = _locationBL.GetInventory(location);
             int count = 1;
 
             foreach(Item item in items){
                 System.Console.WriteLine(count + ": " + item.ToString());
+                count++;
             }
         }
         public Location GetLocation(){
@@ -197,12 +224,9 @@ namespace StoreUI
                     System.Console.WriteLine("wrong input");
                 }
                 else{
-                    if (locations[index].Inventory.Count == 0){
-                        System.Console.WriteLine("This store is empty");
-                    }
-                    else{
-                        repeat = false;
-                    }
+                    
+                    repeat = false;
+                    
                 }
             }while(repeat);
 

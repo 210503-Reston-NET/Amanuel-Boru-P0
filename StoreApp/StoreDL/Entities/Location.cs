@@ -10,6 +10,7 @@ namespace StoreDL.Entities
         public Location()
         {
             Items = new HashSet<Item>();
+            Orders = new HashSet<Order>();
         }
 
         public int LocationId { get; set; }
@@ -17,5 +18,6 @@ namespace StoreDL.Entities
         public string LocationAddress { get; set; }
 
         public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

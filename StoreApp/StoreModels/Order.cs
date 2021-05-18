@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace StoreModels
@@ -11,10 +12,25 @@ namespace StoreModels
         {
             Customer = customer;
             Location = location;
+            Orderdate = DateTime.Now;
             Items = items;
+        }
+
+        public Order(Customer customer, Location location, DateTime orderdate , List<Item> items, double total)
+        {
+            Customer = customer;
+            Location = location;
+            Orderdate = orderdate;
+            Items = items;
+            Total = total;
+        }
+
+        public Order(){
+
         }
         public Customer Customer { get; set; }
         public Location Location { get; set; }
+        public DateTime Orderdate { get; set;}
         public List<Item> Items { get; set; }
         public double Total { get; set; }
 
@@ -34,13 +50,7 @@ namespace StoreModels
 
         public override string ToString()
         {
-            string products = "";
-
-            foreach(Item item in Items){
-                products = string.Join("\n", item.ToString());
-            }
-
-            return $" customer: {Customer.ToString()} \t Total: {Total} \n {products}";
+            return $" customer: {Customer.ToString()} \t Total: {Total} \t {Orderdate}";
         }
     }
 }

@@ -163,16 +163,18 @@ namespace StoreUI
             } 
             else{
                 Location location = GetLocation();
-
-                if (location.Inventory.Count == 0){
-                    System.Console.WriteLine("You dont have any product at this location");
+                List<Item> items = _locationBL.GetInventory(location);
+                
+                System.Console.WriteLine("past the get inventory");
+                
+                if (items == null){
+                    System.Console.WriteLine("you dont have any item at this location");
                 }
                 else{
-                    foreach(Item item in location.Inventory){
-                        System.Console.WriteLine(item.ToString());
+                    foreach(Item item in items){
+                        Console.WriteLine(item.ToString());
                     }
                 }
-                
             }
         }
 

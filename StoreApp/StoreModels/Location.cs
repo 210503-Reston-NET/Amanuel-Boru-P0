@@ -12,6 +12,23 @@ namespace StoreModels
             LocationName = locationName;
             Inventory = new List<Item>();
         }
+
+        public Location(string locationName , string address, int locationID){
+            Address = address;
+            LocationName = locationName;
+            Inventory = new List<Item>();
+            LocationID = locationID;
+        }
+
+        public Location(int locationID)
+        {
+            LocationID = locationID;
+            Address = null;
+            LocationName = null;
+            Inventory = new List<Item>();
+        }
+
+        public int LocationID;
         public string Address { get; set; }
         public string LocationName { get; set; }
 
