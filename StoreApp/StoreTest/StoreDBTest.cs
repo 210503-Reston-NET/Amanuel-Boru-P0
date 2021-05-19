@@ -175,28 +175,6 @@ namespace StoreTest
                                 Quantity = 20
                             }
                         },
-
-                        /*
-                        Orders = new List<Entity.Order>{
-                            new Entity.Order {
-                                OrderId = 1,
-                                Cusername = "amanboru",
-                                LocationId = 1,
-                                Orderdate = DateTime.Now,
-                                Total = 20.00,
-                                Items = new List<Entity.Item> {
-                                    new Entity.Item {
-                                        ItemId = 1,
-                                        LocationId = 1,
-                                        OrderId = 1,
-                                        ProductName = "Lily",
-                                        Price = 5.00,
-                                        Quantity = 4
-                                    }
-                                }
-                            }
-                        }
-                        */
                     }
                 );
                 context.SaveChanges();

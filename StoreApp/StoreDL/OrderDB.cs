@@ -135,5 +135,41 @@ namespace StoreDL
 
             return customerOrder;
         }
+
+        public List<Model.Order> LocationOrdersBydate(Model.Location location){
+            List<Model.Order> allOrders = GetAllOrder();
+            List<Model.Order> locationOrder = new List<Model.Order>();
+
+            foreach(Model.Order order in allOrders){
+                if (order.Location.LocationID == location.LocationID){
+                    locationOrder.Add(order);
+                }
+            }
+
+            locationOrder.Sort(delegate(Model.Order x, Model.Order y)
+                {
+                    return x.Orderdate.CompareTo(y.Orderdate);
+                });
+
+            return locationOrder;
+        }
+
+        public List<Model.Order> LocationOrdersByTotal(Model.Location location){
+            List<Model.Order> allOrders = GetAllOrder();
+            List<Model.Order> locationOrder = new List<Model.Order>();
+
+            foreach(Model.Order order in allOrders){
+                if (order.Location.LocationID == location.LocationID){
+                    locationOrder.Add(order);
+                }
+            }
+
+            locationOrder.Sort(delegate(Model.Order x, Model.Order y)
+                {
+                    return x.Total.CompareTo(y.Total);
+                });
+
+            return locationOrder;
+        }
     }
 }

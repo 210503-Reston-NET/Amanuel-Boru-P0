@@ -48,5 +48,13 @@ namespace StoreBL
         public List<Order> CustomerOrdersByTotal(Customer customer){
             return _orderDB.GetCustomerOrderByTotal(customer);
         }
+
+        public List<Order> LocationOrdersBydate(Location location){
+            return _orderDB.LocationOrdersBydate(location);
+        }
+
+        public List<Order> LocationOrdersByTotal(Location location){
+            return _orderDB.LocationOrdersByTotal(location);
+        }
     }
 }

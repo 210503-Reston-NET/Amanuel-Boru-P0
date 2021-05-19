@@ -50,7 +50,7 @@ namespace StoreModels
 
         public override string ToString()
         {
-            return $" customer: {Customer.ToString()} \t Total: {Total} \t {Orderdate}";
+            return $" customer name: {Customer.UserName} \t\t Total: {Total} \t {Orderdate}";
         }
     }
 }
