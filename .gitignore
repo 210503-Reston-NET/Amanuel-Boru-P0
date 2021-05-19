@@ -30,6 +30,7 @@ Latest commit 8278072 on Feb 11
 377 lines (302 sloc)  6.46 KB
   
 
+appsettings.json
 # Created by https://www.toptal.com/developers/gitignore/api/vscode,dotnetcore,csharp
 # Edit at https://www.toptal.com/developers/gitignore?templates=vscode,dotnetcore,csharp
 

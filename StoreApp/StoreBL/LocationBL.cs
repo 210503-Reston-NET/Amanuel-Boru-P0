@@ -7,49 +7,48 @@ namespace StoreBL
 {
     public class LocationBL
     {
-        private LocationRepo _repo;
+        private LocationDB _locationDB;
 
-        public LocationBL(LocationRepo newLocationRepo){
-            _repo = newLocationRepo;
+        public LocationBL(LocationDB newLocationRepo){
+            _locationDB = newLocationRepo;
         }
 
         public Location AddLocation(Location newLocation){
-            return _repo.AddLocation(newLocation);
+            if (LocationExists(newLocation)) {
+                throw new Exception("Location already exists");
+            }
+            return _locationDB.AddLocation(newLocation);
         }
 
         public List<Location> GetAllLocations(){
-            return _repo.GetAllLocations();
+            return _locationDB.GetAllLocations();
         }
 
         public bool LocationExists(Location newLocation){
-            if (_repo.GetLocation(newLocation) != null) return true;
+            if (_locationDB.GetLocation(newLocation) != null) return true;
 
             return false;
         }
         
         public void AddItemToLocation(Location newLocation, Item newItem){
-            Location existingLocation = _repo.GetLocation(newLocation);
+            Location existingLocation = _locationDB.GetLocation(newLocation);
             if (existingLocation == null){ 
                 throw new Exception("Location does not exist");
             }
-            else if (existingLocation.GetItem(newItem) != null){
-                throw new Exception("Item already exists at location");
-            }
             else{
-                _repo.AddItemToLocation(newItem, existingLocation);
+                _locationDB.AddItemToLocation(newLocation, newItem);
             }
         }
 
-        public void ReplenishItem(Location newLocation, Item newItem, int AddAmount){
-            if (_repo.GetLocation(newLocation) == null){
-                throw new Exception("Location doesnt exist");
+        public List<Item> GetInventory(Location location){
+            if (LocationExists( location) == false){
+                throw new Exception("Location does not exist");
             }
-            else if (_repo.GetLocation(newLocation).GetItem(newItem) == null){
-                throw new Exception("Item doesnt exist at that location");
-            }
-            else{
-                _repo.ReplenishItem(newLocation, newItem, AddAmount);
-            }
+            return _locationDB.GetInventory(location);
+        }
+
+        public void changeInventory(Location location, Item item, int amount){
+            _locationDB.changeInventory(location, item, amount);
         }
     }
 }

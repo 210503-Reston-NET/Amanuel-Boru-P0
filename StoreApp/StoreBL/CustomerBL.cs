@@ -8,27 +8,28 @@ namespace StoreBL
 {
     public class CustomerBL
     {
-        private CustomerRepo _repo;
+        private CustomerDB _customerDB;
 
-        public CustomerBL(CustomerRepo newRepo){
-            _repo = newRepo;
+        public CustomerBL(CustomerDB customerDB)
+        {
+            _customerDB = customerDB;
         }
         public Customer AddCustomer(Customer newCustomer){
-            return _repo.AddCustomer(newCustomer);
+            return _customerDB.AddCustomer(newCustomer);
         }
 
         public bool UserNameExists(string userName){
-            if (_repo.GetCustomer(userName) != null) return true;
+            if (this.GetCustomer(userName) != null) return true;
 
             return false;
         }
 
         public List<Customer> GetAllCustomers(){
-            return _repo.GetAllCustomer();
+            return _customerDB.GetAllCustomers();
         }
 
         public Customer GetCustomer(string username){
-            return _repo.GetCustomer(username);
+            return _customerDB.GetCustomer(username);
         }
     }
 }

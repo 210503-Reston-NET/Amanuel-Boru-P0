@@ -9,6 +9,10 @@ namespace StoreModels
             this.Name = name;
             this.UserName = username;
         }
+        public Customer(string username){
+            UserName = username;
+            Name = null;
+        }
 
         public string Name { get; set; }
         //TODO: add more properties to identify the customer

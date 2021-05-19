@@ -7,19 +7,21 @@ namespace StoreBL
 {
     public class OrderBL
     {
-        OrderRepo _repo;
-        public OrderBL(OrderRepo repo)
+        private OrderRepo _repo;
+        private OrderDB _orderDB;
+        public OrderBL(OrderDB orderDB)
         {
-            _repo = repo;
+            _orderDB = orderDB;
+            _repo = new OrderRepo();
         }
 
-        public Order AddOreder(Order newOrder){
+        public Order AddOreder(Order newOrder, Location location){
             newOrder.calculateTotal();
-            return _repo.AddOrder(newOrder);
+            return _orderDB.AddOrder(newOrder, location);
         }
 
         public List<Order> GetAllOrder(){
-            return _repo.GetAllOrder();
+            return _orderDB.GetAllOrder();
         }
 
         public Order GetOrder(Order newOrder){
@@ -39,16 +41,20 @@ namespace StoreBL
             return total;
         }
 
-        public List<Order> CustomerOrders(Customer customer){
-            List<Order> allOrders = GetAllOrder();
-            List<Order> customerOrders = new List<Order>();
+        public List<Order> CustomerOrdersBydate(Customer customer){
+            return _orderDB.GetCustomerOrderByDate(customer);
+        }
 
-            foreach(Order order in allOrders){
-                if (order.Customer.UserName.Equals(customer.UserName)){
-                    customerOrders.Add(order);
-                }
-            }
-            return customerOrders;
+        public List<Order> CustomerOrdersByTotal(Customer customer){
+            return _orderDB.GetCustomerOrderByTotal(customer);
+        }
+
+        public List<Order> LocationOrdersBydate(Location location){
+            return _orderDB.LocationOrdersBydate(location);
+        }
+
+        public List<Order> LocationOrdersByTotal(Location location){
+            return _orderDB.LocationOrdersByTotal(location);
         }
     }
 }
